@@ -1,6 +1,3 @@
-**# Gatilhos (Triggers) para Atualização de Estoque e Comissão**
-
-Este repositório contém **dois gatilhos (triggers)** que podem ser utilizados em um banco de dados relacionado a uma loja ou sistema de vendas. Vamos explicar cada um deles:
 
 ## 1. Gatilho para Atualização de Estoque de Vendas
 
