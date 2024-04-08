@@ -63,6 +63,27 @@ END;
 DELIMITER ;
 ```
 
-Lembre-se de ajustar as configurações do banco de dados conforme necessário antes de importar o arquivo.
+## 3. Gatilho para Deleção de Produto quando o Estoque Chega a Zero
+### Descrição
+O gatilho deletar_produto é acionado automaticamente após uma atualização na quantidade de um produto na tabela produtos. Ele verifica se a quantidade do produto foi atualizada para zero e, nesse caso, deleta o registro do produto da tabela.
 
-**Observação**: Este script foi desenvolvido como parte de uma atividade e serve apenas para fins educacionais ou de demonstração. Certifique-se de adaptá-lo às necessidades específicas do seu projeto antes de utilizá-lo em produção.
+### Funcionamento
+1. Quando a quantidade de um produto na tabela produtos é atualizada, o gatilho é acionado.
+2. Ele verifica se a nova quantidade é igual a zero.
+3. Se a quantidade for zero, o gatilho deleta o registro do produto da tabela.
+```sql
+DELIMITER //
+
+CREATE TRIGGER deletar_produto AFTER UPDATE ON produtos
+FOR EACH ROW
+BEGIN
+    IF NEW.quantidade = 0 THEN
+        DELETE FROM produtos WHERE id_prod = NEW.id_prod;
+    END IF;
+END;
+
+//
+
+DELIMITER ;
+```
+Este gatilho garante que os produtos com estoque zerado sejam automaticamente removidos da tabela, mantendo-a atualizada e livre de produtos indisponíveis. Certifique-se de ajustar conforme necessário e execute-o no seu banco de dados.
